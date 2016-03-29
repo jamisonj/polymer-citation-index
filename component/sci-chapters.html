@@ -11,11 +11,22 @@
         <div class="breadcrumb layout horizontal">
             <paper-button on-tap="goBack" class="crumb">{{volume.fullName}} &gt; {{book.tocName}}</paper-button>
         </div>
+        <template is="dom-if" if="{{isBible}}">
+            <h4 class="translation">King James Version</h4>
+        </template>
         <div class="layout horizontal wrap" style="margin-left: .4em;">
             <template is="dom-repeat" items="{{chapters}}">
-                <paper-button raised class="chapter">{{item}}</paper-button>
+                <paper-button raised class="chapter" on-tap="goKjv">{{item}}</paper-button>
             </template>
         </div>
+        <template is="dom-if" if="{{isBible}}">
+            <h4 class="translation">Joseph Smith Translation</h4>
+            <div class="layout horizontal wrap" style="margin-left: .4em;">
+                <template is="dom-repeat" items="{{chapters}}">
+                    <paper-button raised class="chapter" on-tap="goJst">{{item}}</paper-button>
+                </template>
+            </div>
+        </template>
         <div class="bottom"></div>
     </template>
 
@@ -28,7 +39,14 @@
                     type: Object,
                     observer: 'bookChanged'
                 },
-                volume: Object,
+                isBible: {
+                    type: Boolean,
+                    value: false
+                },
+                volume: {
+                    type: Object,
+                    observer: 'volumeChanged'
+                },
                 chapters: Array
             },
 
@@ -36,6 +54,14 @@
                 var pages = document.querySelector('#scriptures-pages');
 
                 pages.selectPrevious();
+            },
+
+            goJst: function (event) {
+                // NEEDSWORK: display JST chapter content in the main panel
+            },
+
+            goKjv: function (event) {
+                // NEEDSWORK: display KJV chapter content in the main panel
             },
 
             bookChanged: function (newBook) {
@@ -53,7 +79,19 @@
                 for (i = 1; i <= newBook.numChapters; i++) {
                     self.push('chapters', i);
                 }
+
+                // NEEDSWORK: figure out how to smoothly reset the scroll position
+                // this.scrollTop = 0;
+                // Probably need to implement a hierarchy component that manages
+                // breadcrumbs and scroll position and browser back button navigation.
+            },
+
+            volumeChanged: function (newVolume) {
+                var self = this;
+
+                self.isBible = newVolume.id <= 2;
             }
+
         });
     </script>
 
