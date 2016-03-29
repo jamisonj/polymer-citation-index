@@ -17,9 +17,8 @@
     </style>
 
     <template>
-        <iron-ajax
-            auto
-            id="ajax"
+        <!-- NEEDSWORK: replace static JSON file with call to server to load from database -->
+        <iron-ajax auto
             url="../model/volumes.json"
             handle-as="json"
             last-response="{{volumes}}"
@@ -82,6 +81,7 @@
             },
 
             routeChanged: function (newValue, oldValue) {
+                // NEEDSWORK: finish adding routing facilities
                 var page = newValue.replace('!', '');
                 var params = page.split('?')[1];
                 var pageName = page.split('?')[0];
@@ -92,10 +92,11 @@
 
                 this.$.docAjax.url = 'app/pages/' + pageName + '/' + pageName + '.html?' + params;
                 this.$.docAjax.generateRequest();
-
             },
 
             tabSelected: function (event) {
+                // When the user selects a tab that is already displayed, navigate
+                // to the home panel of that tab (if not already at the home panel).
                 var tabName = event.target.textContent.trim();
                 var drawer;
                 

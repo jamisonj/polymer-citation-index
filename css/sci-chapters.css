@@ -1,0 +1,17 @@
+.crumb {
+    text-transform: none;
+    font-weight: bold;
+    color: var(--paper-grey-800);
+}
+
+.chapter {
+    background-color: white;
+    margin: .2em;
+    padding: .57em;
+    font-size: 11pt;
+    min-width: 67px;
+}
+
+.bottom {
+    padding: 1em;
+}

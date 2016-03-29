@@ -27,6 +27,7 @@
                 <sci-index volumes="{{volumes}}"></sci-index>
             </neon-animatable>
             <neon-animatable class="layout vertical" id="contents-page">
+                <!-- NEEDSWORK: implement sci-contents -->
                 <sci-content-item image-source="images/icon_gc.png"
                                   main-title="General Conference"
                                   sub-title="1942 to present"
@@ -45,6 +46,7 @@
                                   target-url="#tpjs"></sci-content-item>
             </neon-animatable>
             <neon-animatable class="layout vertical" id="speakers-page">
+                <!-- NEEDSWORK: implement sci-speakers -->
                 <br />
                 &nbsp; &nbsp; &nbsp; Speakers panel goes here.
             </neon-animatable>
@@ -64,7 +66,6 @@
             },
 
             navigateHome: function (tabName) {
-                console.log('navigateHome: ' + tabName);
                 if (tabName === 'SCRIPTURES') {
                     document.querySelector('sci-volumes').navigateHome();
                 } else if (tabName === 'INDEX') {

@@ -1,5 +1,7 @@
 .host {
     padding: 3em;
+    max-width: 850px;
+    margin: auto;
 }
 
 #bannerImg {

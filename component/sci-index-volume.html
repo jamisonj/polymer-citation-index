@@ -1,4 +1,4 @@
-<dom-module id="sci-volume">
+<dom-module id="sci-index-volume">
     <link rel="import" href="../bower_components/polymer/polymer.html">
     <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
     <link rel="import" href="../bower_components/paper-button/paper-button.html">
@@ -7,7 +7,7 @@
     <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
     <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 
-    <link rel="import" href="sci-book.html">
+    <link rel="import" href="sci-cite-book.html">
     <link rel="import" type="css" href="../css/sci-volume.css">
 
     <style is="custom-style" include="iron-flex iron-flex-alignment">
@@ -17,13 +17,13 @@
         <div class="layout horizontal">
             <paper-button class="volume flex" on-tap="toggle"
                           data-args="{{volume.id}}">{{volume.fullName}}</paper-button>
-            <paper-icon-button class="volume-icon" id="icon{{volume.id}}" on-tap="toggle"
+            <paper-icon-button class="volume-icon" id="iicon{{volume.id}}" on-tap="toggle"
                           data-args="{{volume.id}}" icon="icons:expand-less"></paper-icon-button>
         </div>
-        <iron-collapse id="collapse{{volume.id}}" opened="true">
+        <iron-collapse id="icollapse{{volume.id}}" opened="true">
             <div class="layout horizontal wrap">
                 <template is="dom-repeat" items="{{volume.books}}">
-                    <sci-book book="{{item}}" volume="{{volume}}"></sci-book>
+                    <sci-cite-book book="{{item}}" volume="{{volume}}"></sci-cite-book>
                 </template>
             </div>
         </iron-collapse>
@@ -31,14 +31,14 @@
 
     <script>
         Polymer({
-            is: 'sci-volume',
+            is: 'sci-index-volume',
 
             properties: {
                 volume: Object
             },
 
             toggle: function (event) {
-                globalToggleCollapse(event, 'collapse', 'icon');
+                globalToggleCollapse(event, 'icollapse', 'iicon');
             }
         });
     </script>

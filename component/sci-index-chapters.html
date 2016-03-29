@@ -1,4 +1,4 @@
-<dom-module id="sci-chapters">
+<dom-module id="sci-index-chapters">
     <link rel="import" href="../bower_components/polymer/polymer.html">
     <link rel="import" href="../bower_components/paper-button/paper-button.html">
 
@@ -7,13 +7,15 @@
     <style is="custom-style" include="iron-flex iron-flex-alignment">
     </style>
 
+    <!-- NEEDSWORK: get the citation counts for each chapter from the server -->
     <template>
         <div class="breadcrumb layout horizontal">
             <paper-button on-tap="goBack" class="crumb">{{volume.fullName}} &gt; {{book.tocName}}</paper-button>
         </div>
         <div class="layout horizontal wrap" style="margin-left: .4em;">
             <template is="dom-repeat" items="{{chapters}}">
-                <paper-button raised class="chapter">{{item}}</paper-button>
+                <paper-button raised class="chapter">{{item}}<br />
+                <span>[{{cites}}]</span></paper-button>
             </template>
         </div>
         <div class="bottom"></div>
@@ -21,7 +23,7 @@
 
     <script>
         Polymer({
-            is: 'sci-chapters',
+            is: 'sci-index-chapters',
 
             properties: {
                 book: {
@@ -33,7 +35,7 @@
             },
 
             goBack: function (event) {
-                var pages = document.querySelector('#scriptures-pages');
+                var pages = document.querySelector('#index-pages');
 
                 pages.selectPrevious();
             },

@@ -89,20 +89,21 @@ animations to be run when switching to or switching out of the page.
         value: false
       },
 
+      // PATCH 1
+      // Add slide-backwards property to control the left/right sliding direction
+      // when moving from higher to lower or lower to higher page.
       slideBackwards: {
         type: Boolean,
         value: false
       },
 
+      // PATCH 2
+      // Remember the previously selected page, defaulting to 0.
       previousSelected: {
         type: Number,
         value: 0
       }
 
-    },
-
-    created: function () {
-        this.selfObject = this;
     },
 
     listeners: {
@@ -111,8 +112,10 @@ animations to be run when switching to or switching out of the page.
     },
 
     _onIronSelect: function(event) {
-      // We need to be sure this event is intended for this element.
-      if (event.target !== this.selfObject) {
+      // PATCH 3
+      // We need to be sure this event is intended for this element, so
+      // ignore this event if the target is not self.
+      if (event.target !== this) {
         return;
       }
 
@@ -134,7 +137,9 @@ animations to be run when switching to or switching out of the page.
         node: selectedPage
       }];
 
-      // Custom code here...
+      // PATCH 4
+      // When animating a page change, choose animations that correspond to
+      // left/right as determined by the relative page positions.
       if (this.previousSelected !== this.selected) {
         if ( (!this.slideBackwards && this.previousSelected < this.selected) ||
              (this.slideBackwards && this.previousSelected > this.selected) ) {

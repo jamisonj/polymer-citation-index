@@ -5,7 +5,8 @@
     <link rel="import" type="css" href="../css/sci-cite-book.css">
 
     <template>
-        <paper-button class="book" raised on-tap="showBook">{{name}}<br/><span class="cites">[{{cites}}]</span></paper-button>
+        <paper-button class="book" raised on-tap="showBook">{{book.gridName}}<br/>
+            <span class="cites">[{{book.cites}}]</span></paper-button>
     </template>
 
     <script>
@@ -13,14 +14,24 @@
             is: 'sci-cite-book',
 
             properties: {
-                bookId: Number,
-                name: String,
-                cites: Number
+                book: Object,
+                volume: Object
             },
 
             showBook: function (event) {
-                // set window hash?
-                console.log(this.id);
+                var pages;
+                var scripturesChapters;
+
+                if (this.book.numChapters <= 1) {
+                    // NEEDSWORK: display list of citations
+                } else {
+                    pages = document.querySelector('#index-pages');
+                    indexChapters = document.querySelector('#index-chapters');
+
+                    indexChapters.book = this.book;
+                    indexChapters.volume = this.volume;
+                    pages.selected = 1;
+                }
             }
         });
     </script>
