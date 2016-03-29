@@ -1,0 +1,70 @@
+<dom-module id="sci-index">
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+    <link rel="import" href="../bower_components/paper-button/paper-button.html">
+    <link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
+    <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+    <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+    <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+    <link rel="import" href="sci-cite-book.html">
+    <link rel="import" type="css" href="../css/sci-index.css">
+
+    <style is="custom-style" include="iron-flex iron-flex-alignment">
+        // We need to include iron-flex and iron-flex-alignment in our custom style.
+    </style>
+
+    <template>
+        <template is="dom-repeat" items="{{volumes}}">
+            <div class="layout horizontal">
+                <paper-button class="volume flex" on-tap="toggle"
+                              data-args="{{item.id}}">{{item.fullName}}</paper-button>
+                <paper-button class="volume-cite" on-tap="toggle"
+                              data-args="{{item.id}}">[{{item.cites}}]</paper-button>
+                <paper-icon-button class="volume-icon" id="iicon{{item.id}}" on-tap="toggle"
+                              data-args="{{item.id}}" icon="icons:expand-less"></paper-icon-button>
+            </div>
+            <iron-collapse id="icollapse{{item.id}}" opened="true">
+                <div class="layout horizontal wrap">
+                    <template is="dom-repeat" items="{{item.books}}">
+                        <sci-cite-book book-id={{item.id}} name="{{item.gridName}}" cites="{{item.cites}}"></sci-cite-book>
+                    </template>
+                </div>
+            </iron-collapse>
+        </template>
+        <div class="bottom"/>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'sci-index',
+
+            properties: {
+                volumes: Object
+            },
+
+            toggle: function (e) {
+                var volumeId = event.target.dataArgs;
+                var collapse;
+                var icon;
+                var rotate;
+
+                if (volumeId === undefined) {
+                    volumeId = event.target.parentElement.dataArgs;
+                }
+
+                collapse = document.querySelector('#icollapse' + volumeId);
+                icon = document.querySelector('#iicon' + volumeId);
+
+                rotate = collapse.opened ? 180 : 0;
+                collapse.toggle();
+
+                if (window.$ !== undefined && $.fn.animateRotate !== undefined) {
+                    $(icon).animateRotate(rotate, 180 - rotate, 200);
+                } else {
+                    icon.style.transform = "rotate(" + rotate + "deg)";
+                }
+            }
+        });
+    </script>
+</dom-module>

@@ -1,0 +1,41 @@
+.host {
+    padding: 3em;
+}
+
+#bannerImg {
+    max-width: 703px;
+}
+
+.compact {
+    margin: 0;
+}
+
+.subtle {
+    font-weight: normal;
+}
+
+.section {
+    width: 100%;
+    text-align: center;
+    background-color: var(--paper-brown-100);
+    padding-top: .2em;
+    padding-bottom: .2em;
+    color: var(--paper-grey-800);
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid black;
+    padding: .3em;
+}
+
+th {
+    background-color: var(--paper-blue-100);
+}
+
+td {
+    background-color: var(--paper-brown-50);
+}

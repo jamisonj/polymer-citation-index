@@ -1,0 +1,111 @@
+<dom-module id="sci-app">
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/paper-drawer-panel/paper-drawer-panel.html">
+    <link rel="import" href="../bower_components/paper-header-panel/paper-header-panel.html">
+    <link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+    <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+    <link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+    <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+    <link rel="import" href="sci-about.html">
+    <!--<link rel="import" href="sci-director.html">-->
+    <link rel="import" href="sci-drawer-pages.html">
+
+    <link rel="import" type="css" href="../css/sci-app.css">
+
+    <style is="custom-style" include="iron-flex iron-flex-alignment">
+    </style>
+
+    <template>
+        <iron-ajax
+            auto
+            id="ajax"
+            url="../model/volumes.json"
+            handle-as="json"
+            last-response="{{volumes}}"
+            debounce-duration="300">
+        </iron-ajax>
+
+        <paper-drawer-panel class="flex" drawer-width="380px">
+            <!-- Here's the drawer, and it automatically hides away for narrow displays -->
+            <paper-header-panel drawer class="drawerback">
+                <paper-toolbar class="drawer-head medium-tall">
+                    <div class="flex">LDS Scripture Citation Index</div>
+                    <paper-tabs selected="{{selected}}" class="bottom self-end" on-tap="tabSelected">
+                        <paper-tab>SCRIPTURES</paper-tab>
+                        <paper-tab>INDEX</paper-tab>
+                        <paper-tab>CONTENTS</paper-tab>
+                        <paper-tab>SPEAKERS</paper-tab>
+                    </paper-tabs>
+                </paper-toolbar>
+                <sci-drawer-pages volumes="{{volumes}}" selected="{{selected}}" class="flex"></sci-drawer-pages>
+            </paper-header-panel>
+
+            <!-- Here's the main content panel -->
+            <paper-header-panel main>
+                <paper-toolbar class="medium-tall">
+                    <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+                    <div class="flex site-title">About the LDS Scripture Citation Index</div>
+                    <paper-icon-button icon="search"></paper-icon-button>
+                    <div class="bottom">
+                        &nbsp; <b>Note:</b> the real LDS Scripture Citation Index is at
+                        <a href="http://scriptures.byu.edu" style="color: white">scriptures.byu.edu</a>
+                    </div>
+                </paper-toolbar>
+                <sci-about></sci-about>
+            </paper-header-panel>
+        </paper-drawer-panel>
+        <!--<sci-director route="{{route}}"></sci-director>-->
+        <!--<iron-ajax id="docAjax" url="" handle-as="document"></iron-ajax>-->
+    </template>
+    <script>
+        Polymer({
+            is: 'sci-app',
+
+            properties: {
+                route: {
+                    type: String,
+                    notify: true,
+                    observer: 'routeChanged'
+                },
+
+                previousSelected: {
+                    type: String,
+                    value: 'SCRIPTURES'
+                },
+
+                selected: {
+                    type: Number,
+                    value: 0,
+                    notify: true
+                }
+            },
+
+            routeChanged: function (newValue, oldValue) {
+                var page = newValue.replace('!', '');
+                var params = page.split('?')[1];
+                var pageName = page.split('?')[0];
+
+                if (pageName === '') {
+                    pageName = 'home';
+                }
+
+                this.$.docAjax.url = 'app/pages/' + pageName + '/' + pageName + '.html?' + params;
+                this.$.docAjax.generateRequest();
+
+            },
+
+            tabSelected: function (event) {
+                var tabName = event.target.textContent.trim();
+                var drawer;
+                
+                if (this.previousSelected === tabName) {
+                    drawer = document.querySelector('sci-drawer-pages');
+                    drawer.navigateHome(tabName);
+                }
+
+                this.previousSelected = tabName;
+            }
+        });
+    </script>
+</dom-module>

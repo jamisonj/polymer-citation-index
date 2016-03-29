@@ -1,0 +1,233 @@
+<dom-module id="sci-about">
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+    <link rel="import" type="css" href="../css/sci-about.css">
+
+    <style is="custom-style" include="iron-flex iron-flex-alignment">
+    </style>
+
+    <template>
+        <div class="host layout vertical">
+            <img id="bannerImg" class="self-center" src="../images/Banner-703.jpg"></img>
+            <h2 class="self-center">LDS Scripture Citation Index</h2>
+            <h3 class="self-center compact subtle">Version 3.5.0</h3>
+            <h3 class="self-center subtle">By Stephen W. Liddle and Richard C. Galbraith</h3>
+
+            <h2 class="self-center section">Overview</h2>
+            <p>Welcome to the LDS Scripture Citation Index.  This index, found on the
+            right side of your browser window, links from scriptures to the general
+            conference talks, <i>Journal of Discourses</i> speeches, and writings in
+            <i>Teachings of the Prophet Joseph Smith</i> that cite those
+            scriptures.&nbsp; So, for example, suppose you want to know who has cited
+            1&nbsp;Ne.&nbsp;3:7 in general conference; tap on the First Nephi button
+            followed by the 1&nbsp;Ne.&nbsp;3 button; there you'll find the answer.&nbsp;
+            Who has quoted Matt.&nbsp;5:48?&nbsp; Use the New Testament index to find out.</p>
+
+            <p>The panel on the left side of your browser lets you read the scriptures, including
+            the King James Version and Joseph Smith Translation of the Bible, the Book of Mormon,
+            Doctrine and Covenants, and the Pearl of Great Price.  This is not the official
+            LDS version of the standard works.  Go to <a href="http://lds.org/scriptures">LDS.org/scriptures</a>
+            for the official publication.  Among the differences between this version and the Church's official
+            version are that we do not include their footnotes, chapter summaries, and study helps
+            such as the Bible Dictionary and Topical Guide.</p>
+
+            <p>We have indexed the scriptures cited by speakers in LDS General Conference
+            between 1942 and the present, and those cited by speakers recorded in the
+            <i>Journal of Discourses</i> between 1839 and 1886.&nbsp; The citations in
+            <i>Teachings of the Prophet Joseph Smith</i> come from the special edition,
+            <i>Scriptural Teachings of the Prophet Joseph Smith</i>, edited by Richard C.
+            Galbraith and published by Deseret Book in 1993 (ISBN 0875796478).</p>
+
+            <p>To begin, click on one of the books and chapters in the index and you'll see
+            a list of references for verses in that chapter.&nbsp; A reference looks like
+            this: <b>2 Pet. 1:4</b>.  When you select the <b>2 Pet. 1:4</b> item, you will see
+            a list of citations for 2 Peter chapter 1 verse 4.  Citations occur in three forms.
+
+            <p><b>1. General Conference:</b></p>
+            <!-- NEEDSWORK: replace this with the component we create to show a talk link -->
+            <div class="list">
+                <ul class="referencesblock"><li><a href="javascript:void(0);" class="refcounter"><div
+                    class="reference referencewatch referencelisten" style="width: 302px;">2006&ndash;A:114, James E. Faust</div><div
+                    class="talktitle talktitlewatch talktitlelisten" style="width: 302px;">Your Light&mdash;a Standard to All Nations</div></a><a
+                    href="javascript:void(0);" title="Watch talk at lds.org" class="watchlink"><div class="watchtalk">Watch</div></a><a href="javascript:void(0);"
+                    title="Listen to talk at lds.org" class="listenlink"><div class="listentalk">Listen</div></a></li></ul>
+            </div>
+            <p>&ldquo;2006&rdquo; is the year of the conference, &ldquo;A&rdquo; means April (or &ldquo;O&rdquo; for October),
+            &ldquo;114&rdquo; is the page number in the <i>Ensign</i> (1971&ndash;present) or <i>Conference Reports</i> (1942&ndash;1970).
+            &ldquo;James E. Faust&rdquo; is the speaker name, and the talk title appears in smaller
+            text on the second line.  The icons labeled Watch and Listen take you to LDS.org for a video or audio
+            presentation of the talk.  Audio and video are available for more recent conference talks, but not for
+            older talks.</p>
+
+            <p><b>2. Journal of Discourses:</b></p>
+            <!-- NEEDSWORK: replace this with the component we create to show a Journal of Discourses link -->
+            <div class="list">
+                <ul class="referencesblock">
+                    <li><a href="javascript:void(0);" class="refcounter"><div
+                        class="reference referencewatch referencelisten" style="width: 302px;">JD 10:194a, Brigham Young</div><div
+                        class="talktitle talktitlewatch talktitlelisten" style="width: 302px;">Knowledge, Correctly Applied, Etc.</div></a>
+                    </li>
+                </ul>
+            </div>
+            <p>&ldquo;10&rdquo; means volume 10 of the <i>Journal of Discourses</i>, &ldquo;194&rdquo;
+            is the page number, &ldquo;a&rdquo; indicates the left column (or &ldquo;b&rdquo; for the
+            right column), &ldquo;Brigham Young&rdquo; is the speaker name, and the discourse
+            title appears in smaller text on the second line.</p>
+
+            <p><b>3. Teachings of the Prophet Joseph Smith:</b></p>
+            <!-- NEEDSWORK: replace this with the component we create to show a TPJS link -->
+            <div class="list">
+                <ul class="referencesblock">
+                    <li><a href="javascript:void(0);" class="refcounter"><div
+                        class="reference referencewatch referencelisten" style="width: 302px;">TPJS 163, Joseph Smith</div><div
+                        class="talktitle talktitlewatch talktitlelisten" style="width: 302px;"></div></a>
+                    </li>
+                </ul>
+            </div>
+            <p>&ldquo;163&rdquo; is the page number in <i>Teachings of the Prophet Joseph Smith</i>.</p>
+
+            <p>In general conference talks, <i>Journal of Discourses</i>, and
+            <i>Teachings of the Prophet Joseph Smith</i>,
+            synchronization arrows (<img src="../images/sync_17@2x.png" width="22" height="17">)
+            appear to the left of each scriptural reference.  Clicking on these arrows
+            will synchronize the citation index to display all other occurrences
+            of that scripture.</p>
+
+            <p>In <i>Journal of Discourses</i> talks, pages and columns are separated
+            by yellow (left column, <u>a</u>) or blue (right column, <u>b</u>) markers.
+            Within each marker are two icons.  The left icon
+            (<img src="../images/pdf_17.png" width="14" height="17">)
+            brings up a PDF copy of the printed page; the right icon
+            (<img src="../images/hbll_17.png" width="14" height="17">)
+            brings up the BYU Library digital scan of the original.</p>
+
+            <h2 class="self-center section">How to Search</h2>
+            This web site uses the open-source Lucene search engine, so queries use the Lucene
+            syntax, which is a lot like Google's.  Here are few sample queries you might try:</p>
+            <table class="search">
+                <tr><th>Search Terms</th><th>Finds Documents &hellip;</th></tr>
+                <tr><td>angels stand sentinels</td><td>Finds documents containing
+                        any combination of these words.</td></tr>
+                <tr><td>+angels +stand +sentinels</td><td>Finds documents containing
+                        all three words.</td></tr>
+                <tr><td>-angels +sentinels</td><td>Finds documents containing
+                        &ldquo;sentinels&rdquo; but not &ldquo;angels&rdquo;.</td></tr>
+                <tr><td>&ldquo;angels sentinels&rdquo;~10</td><td>Finds documents where
+                        &ldquo;sentinels&rdquo; is separated from &ldquo;angels&rdquo;
+                        by at most 10 words.</td></tr>
+                <tr><td>&ldquo;angels who stand&rdquo;</td><td>Finds documents containing
+                        the exact phrase &ldquo;angels who stand&rdquo;.</td></tr>
+                <tr><td>+Uchtdorf +hope</td><td>Finds all talks from President Uchtdorf
+                        including the word &ldquo;hope&rdquo;.  Note that this actually
+                        finds all documents that include the words &ldquo;Uchtdorf&rdquo;
+                        and &ldquo;hope&rdquo;, but most often documents containing the
+                        word &ldquo;Uchtdorf&rdquo; are his talks.</td></tr>
+                <tr><td>angel*s</td><td>Finds documents containing any word starting with
+                        &ldquo;angel&rdquo; and ending with &ldquo;s&rdquo; (e.g.,
+                        &ldquo;angels&rdquo;, &ldquo;Angeles&rdquo;). The <b>*</b> wildcard
+                        matches any combination of 0 or more letters.</td></tr>
+                <tr><td>s?nd</td><td>Finds documents containing any 4-letter word starting
+                        with &ldquo;s&rdquo; and ending with &ldquo;nd&rdquo; (e.g.,
+                        &ldquo;sand&rdquo;, &ldquo;send&rdquo;). The <b>?</b> wildcard
+                        matches exactly one letter.</td></tr>
+            </table>
+            <p>Searches are case insensitive. The <b>*</b> wildcard may not appear as the first letter of a search
+            term, and both <b>*</b> and <b>?</b> wildcards may not be used in phrase and proximity searches.
+            For example, the queries &ldquo;angel*s stand&rdquo;~5
+            and &ldquo;s?nd here&rdquo; both will produce no results.</p>
+
+            <p>Our search facility lets you search either the talks (including <i>Teachings of the Prophet Joseph Smith</i>,
+            <i>Journal of Discourses</i>, and talks from General Conference since 1942) or the scriptures.  When searching
+            talks, by default we sort the results according to relevance, meaning that talks that use the search terms
+            most appear earlier in the results list.  You can change this to sort by date by unchecking the box next
+            to "Sort by Relevance", and the results list will be sorted by date (most recent talk first).  You can
+            also limit the search to a specific speaker and/or to a range of years, and you can choose which sets of
+            talks to search (i.e. General Conference, <i>Journal of Discourses</i>, or <i>Teachings</i>).</p>
+
+            <p>When searching scriptures, the default order for the results list is by order within the standard works
+            (<i>Old Testament</i>, <i>New Testament</i>, <i>Book of Mormon</i>, <i>Doctrine and Covenants</i>, and
+            <i>Pearl of Great Price</i>).  If you check the box next to "Sort by Relevance", the results list will be
+            presented in order of relevance, meaning verses that have search terms as a higher percentage of the verse
+            will appear earlier in the results.  You can also choose which specific volumes to search.  Selecting "Joseph
+            Smith Translation" tells the system to search for JST verses that are footnoted in the LDS edition of the
+            Bible.  However, if you deselect Old Testament and New Testament but select "Joseph Smith Translation", then
+            the system will search all verses of the JST, not just the LDS footnoted verses.</p>
+
+            <h2 class="self-center section">History</h2>
+            <p>The LDS Scripture Citation index was first created in paper form by Richard Galbraith
+            while serving as a faculty member at BYU (now emeritus).  The index was made into a web site
+            and corresponding mobile apps by Stephen Liddle, also a BYU faculty member.  We've had help
+            from many great BYU students through the years working on various aspects of this project.
+            We appreciate the help of our research assistants,
+            particularly Brad Humphery, Jeremy Knudsen, Allan Bond, Will Jensen, James Anderson,
+            Dan King, Thomas Packer, Rosie Liddle Sadler, and James Delorey, who have been instrumental in building the 
+            database and programming elements of this site.&nbsp; Brandon Petersen is the graphics designer
+            who created the art work shown at the top of this panel.  We also gratefully 
+            acknowledge funding provided by the
+            <a href="http://marriottschool.byu.edu/cet">Rollins Center at BYU</a>.</p>
+
+            <p>LDS Scripture Citation Index, Copyright &copy; 2010-2016, Richard C. Galbraith and
+            Stephen W. Liddle.  All rights reserved.</p>
+
+            <p>Please note that this is not an official LDS Church
+            publication.&nbsp; Although we link extensively to
+            <a href="http://lds.org/">lds.org</a> to
+            display the text of scriptures and conference talks,
+            this web site is our own personal creation and does not represent any
+            official views of The Church of Jesus Christ of Latter-day Saints.</p>
+            <p>We also link to the first edition <a
+                    href="http://contentdm.lib.byu.edu/cdm4/browse.php?CISOROOT=%2FJournalOfDiscourses3"><i>Journal
+                    of Discourses</i></a>
+            from the Harold B. Lee Library, Brigham Young University.  The library
+            provides further access to other important scanned texts and manuscripts
+            at the <a href="http://www.lib.byu.edu/online.html">Lee Library digital
+            collections</a>.
+            </p>
+
+            <h2 class="self-center section">Other Notes</h2>
+            <p><b>Ensign Issues containing LDS General Conference
+                      (1971-present):</b></p>
+            <table border="1" cellspacing="2" cellpadding="4" align="center">
+                <tr><th align="left">&nbsp;LDS General Conference</th>
+                    <th align="left">&nbsp;Ensign Issue</th></tr>
+                <tr><td>&nbsp;April Conference, 1971:</td><td>&nbsp;June 1971</td></tr>
+                <tr><td>&nbsp;October Conference, 1971:</td><td>&nbsp;December 1971</td></tr>
+                <tr><td>&nbsp;April Conference, 1972:</td><td>&nbsp;July 1972</td></tr>
+                <tr><td>&nbsp;October Conference, 1972:</td><td>&nbsp;January 1973</td></tr>
+                <tr><td>&nbsp;April Conference, 1973:</td><td>&nbsp;July 1973</td></tr>
+                <tr><td>&nbsp;October Conference, 1973:</td><td>&nbsp;January 1974</td></tr>
+                <tr><td>&nbsp;April Conference (1974-present):</td>
+                    <td>&nbsp;May 1974-present</td></tr>
+                <tr><td>&nbsp;October Conference (1974-present):&nbsp;</td>
+                    <td>&nbsp;November 1974-present</td></tr>
+            </table>
+            <p><b>Improvement Era Issues containing LDS General Conference (1942-1970):</b></p>
+            <table border="1" cellspacing="2" cellpadding="2" align="center">
+                <tr><th align="left">&nbsp;LDS General Conference</th>
+                    <th align="left">&nbsp;Improvement Era Issue&nbsp;</th></tr>
+                <tr><td>&nbsp;April Conference (1942-1950):</td><td>&nbsp;May 1942-1950</td></tr>
+                <tr><td>&nbsp;October Conference (1942-1949):</td>
+                    <td>&nbsp;November 1942-1949</td></tr>
+                <tr><td>&nbsp;April Conference (1951-1970):&nbsp;</td><td>&nbsp;June 1951-1970</td></tr>
+                <tr><td>&nbsp;October Conference (1950-1970):</td>
+                    <td>&nbsp;December 1950-1970</td></tr>
+            </table>
+            <p><b>Note:</b>&nbsp; The proceedings of the April 1943 conference
+                were published in the May, June, and July issues of the 1943 Improvement
+                Era due to a wartime paper shortage.&nbsp; The October 1957 conference was
+                canceled due to an epidemic of Asian flu in the United States.&nbsp; Elder
+                Harold B. Lee's priesthood address at the October 1967 conference was
+                published in the January 1968 issue of the Improvement Era, pages 26-31.
+                Also, in our index, page numbers for conference addresses between 1942 and 1970
+                reference the Conference Reports due to the scarcity of Improvement Era magazines.
+            </p>
+            <br />
+            <br />
+        </div>
+    </template>
+
+    <script>
+        Polymer({ is: "sci-about" });
+    </script>
+</dom-module>

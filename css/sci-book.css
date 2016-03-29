@@ -1,0 +1,11 @@
+paper-button {
+    background-color: white;
+    margin-top: .2em;
+    margin-bottom: .2em;
+    padding: .57em;
+}
+
+.book {
+    font-size: 11pt;
+    min-width: 118px;
+}

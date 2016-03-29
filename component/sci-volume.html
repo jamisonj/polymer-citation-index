@@ -1,0 +1,65 @@
+<dom-module id="sci-volume">
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+    <link rel="import" href="../bower_components/paper-button/paper-button.html">
+    <link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
+    <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+    <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+    <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+    <link rel="import" href="sci-book.html">
+    <link rel="import" type="css" href="../css/sci-volume.css">
+
+    <style is="custom-style" include="iron-flex iron-flex-alignment">
+        // We need to include iron-flex and iron-flex-alignment in our custom style.
+    </style>
+
+    <template>
+        <div class="layout horizontal">
+            <paper-button class="volume flex" on-tap="toggle"
+                          data-args="{{volume.id}}">{{volume.fullName}}</paper-button>
+            <paper-icon-button class="volume-icon" id="icon{{volume.id}}" on-tap="toggle"
+                          data-args="{{volume.id}}" icon="icons:expand-less"></paper-icon-button>
+        </div>
+        <iron-collapse id="collapse{{volume.id}}" opened="true">
+            <div class="layout horizontal wrap">
+                <template is="dom-repeat" items="{{volume.books}}">
+                    <sci-book book="{{item}}" volume="{{volume}}"></sci-book>
+                </template>
+            </div>
+        </iron-collapse>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'sci-volume',
+
+            properties: {
+                volume: Object
+            },
+
+            toggle: function (e) {
+                var volumeId = event.target.dataArgs;
+                var collapse;
+                var icon;
+                var rotate;
+
+                if (volumeId === undefined) {
+                    volumeId = event.target.parentElement.dataArgs;
+                }
+
+                collapse = document.querySelector('#collapse' + volumeId);
+                icon = document.querySelector('#icon' + volumeId);
+
+                rotate = collapse.opened ? 180 : 0;
+                collapse.toggle();
+
+                if (window.$ !== undefined && $.fn.animateRotate !== undefined) {
+                    $(icon).animateRotate(rotate, 180 - rotate, 200);
+                } else {
+                    icon.style.transform = "rotate(" + rotate + "deg)";
+                }
+            }
+        });
+    </script>
+</dom-module>

@@ -1,0 +1,16 @@
+paper-button {
+    background-color: white;
+    margin-top: .2em;
+    margin-bottom: .2em;
+    padding: .57em;
+    text-transform: none;
+}
+
+.book {
+    font-size: 11pt;
+    min-width: 85px;
+}
+
+.cites {
+    font-size: 9.5pt;
+}

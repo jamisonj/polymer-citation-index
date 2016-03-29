@@ -1,0 +1,59 @@
+<dom-module id="sci-volumes">
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+    <!-- <link rel="import" href="../bower_components/iron-pages/iron-pages.html"> -->
+
+    <link rel="import" href="../bower_components/neon-animation/neon-animatable.html">
+    
+    <!-- Override with custom version -->
+    <link rel="import" href="neon-animated-pages.html">
+    
+    <link rel="import" href="../bower_components/neon-animation/animations/slide-from-left-animation.html">
+    <link rel="import" href="../bower_components/neon-animation/animations/slide-right-animation.html">
+    <link rel="import" href="../bower_components/neon-animation/animations/slide-from-right-animation.html">
+    <link rel="import" href="../bower_components/neon-animation/animations/slide-left-animation.html">
+
+    <link rel="import" href="sci-volume.html">
+    <link rel="import" href="sci-chapters.html">
+
+    <style is="custom-style" include="iron-flex iron-flex-alignment">
+        .bottom {
+            padding: 1em;
+        }
+    </style>
+
+    <template>
+        <neon-animated-pages id="scriptures-pages" selected="{{selected}}" slide-backwards="true">
+            <neon-animatable class="layout vertical" id="volumes-page">
+                <template is="dom-repeat" items="{{volumes}}">
+                    <sci-volume volume="{{item}}"></sci-volume>
+                </template>
+                <div class="bottom"></div>
+            </neon-animatable>
+            <neon-animatable class="layout vertical" id="chapters-page">
+                <sci-chapters id="scriptures-chapters"></sci-chapters>
+            </neon-animatable>
+        </neon-animated-pages>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'sci-volumes',
+
+            properties: {
+                selected: {
+                    type: Number,
+                    value: 0
+                },
+
+                volumes: Object
+            },
+
+            navigateHome: function () {
+                if (this.selected !== 0) {
+                    this.set('selected', 0);
+                }
+            }
+        });
+    </script>
+</dom-module>

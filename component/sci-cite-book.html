@@ -1,0 +1,28 @@
+<dom-module id="sci-cite-book">
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+    <link rel="import" type="css" href="../css/sci-cite-book.css">
+
+    <template>
+        <paper-button class="book" raised on-tap="showBook">{{name}}<br/><span class="cites">[{{cites}}]</span></paper-button>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'sci-cite-book',
+
+            properties: {
+                bookId: Number,
+                name: String,
+                cites: Number
+            },
+
+            showBook: function (event) {
+                // set window hash?
+                console.log(this.id);
+            }
+        });
+    </script>
+
+</dom-module>

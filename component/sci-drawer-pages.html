@@ -1,0 +1,81 @@
+<dom-module id="sci-drawer-pages">
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+    <link rel="import" href="../bower_components/neon-animation/neon-animatable.html">
+
+    <!-- Override with custom version -->
+    <link rel="import" href="neon-animated-pages.html">    
+
+    <link rel="import" href="../bower_components/neon-animation/animations/slide-from-left-animation.html">
+    <link rel="import" href="../bower_components/neon-animation/animations/slide-right-animation.html">    
+    <link rel="import" href="../bower_components/neon-animation/animations/slide-from-right-animation.html">
+    <link rel="import" href="../bower_components/neon-animation/animations/slide-left-animation.html">    
+
+    <link rel="import" href="sci-volumes.html">    
+    <link rel="import" href="sci-index.html">    
+    <link rel="import" href="sci-content-item.html">    
+
+    <style is="custom-style" include="iron-flex iron-flex-alignment">
+    </style>
+
+    <template>
+        <neon-animated-pages selected="[[selected]]">
+            <neon-animatable class="layout vertical" id="scriptures-page">
+                <sci-volumes volumes="{{volumes}}"></sci-volumes>
+            </neon-animatable>
+            <neon-animatable class="layout vertical" id="index-page">
+                <sci-index volumes="{{volumes}}"></sci-index>
+            </neon-animatable>
+            <neon-animatable class="layout vertical" id="contents-page">
+                <sci-content-item image-source="images/icon_gc.png"
+                                  main-title="General Conference"
+                                  sub-title="1942 to present"
+                                  target-url="#gc"></sci-content-item>
+                <sci-content-item image-source="images/icon_jod.png"
+                                  main-title="Journal of Discourses"
+                                  sub-title="Discourses from the 1800's"
+                                  target-url="#jod"></sci-content-item>
+                <sci-content-item image-source="images/icon_tg.png"
+                                  main-title="Topical Index"
+                                  sub-title="to the Journal of Discourses"
+                                  target-url="#tg"></sci-content-item>
+                <sci-content-item image-source="images/icon_tpjs.png"
+                                  main-title="Scriptural Teachings"
+                                  sub-title="of the Prophet Joseph Smith"
+                                  target-url="#tpjs"></sci-content-item>
+            </neon-animatable>
+            <neon-animatable class="layout vertical" id="speakers-page">
+                <br />
+                &nbsp; &nbsp; &nbsp; Speakers panel goes here.
+            </neon-animatable>
+        </neon-animated-pages>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'sci-drawer-pages',
+
+            properties: {
+                selected: {
+                    type: Number,
+                    value: 0,
+                    notify: true
+                }
+            },
+
+            navigateHome: function (tabName) {
+                console.log('navigateHome: ' + tabName);
+                if (tabName === 'SCRIPTURES') {
+                    document.querySelector('sci-volumes').navigateHome();
+                } else if (tabName === 'INDEX') {
+                    document.querySelector('sci-index').navigateHome();
+                } else if (tabName === 'CONTENTS') {
+                    document.querySelector('sci-contents').navigateHome();
+                } else if (tabName === 'SPEAKERS') {
+                    document.querySelector('sci-speakers').navigateHome();
+                }
+            }
+        });
+    </script>
+
+</dom-module>

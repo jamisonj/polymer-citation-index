@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="LDS Scripture Citation Index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LDS Scripture Citation Index</title>
+
+    <!-- We need this shim to polyfill some browsers. -->
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+
+    <!-- Load jQuery for animation code. NEEDSWORK: see if we can do it without jQuery. -->
+    <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+    <script defer async src="script/utilities.js"></script>
+
+    <!-- Import the Polymer elements we need. -->
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+    <!-- Import our custom Polymer elements. -->
+    <link rel="import" href="component/sci-app.html">
+
+    <!-- It wouldn't really be Material without Roboto, would it? -->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:900">
+
+    <style is="custom-style" include="iron-flex iron-flex-alignment">
+        body {
+            font-family: Roboto, 'Noto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+    </style>
+</head>
+<!-- "fullbleed" makes the page occupy the full viewport -->
+<!-- "vertical layout" says to use flexbox in the vertical orientation -->
+<body class="fullbleed vertical layout">
+    <sci-app></sci-app>
+</body>
+</html>

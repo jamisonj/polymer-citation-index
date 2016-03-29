@@ -1,0 +1,25 @@
+paper-button {
+    text-transform: none;
+    text-align: left;
+}
+
+paper-icon-button {
+    margin: .3em .5em .5em 0;
+}
+
+.volume {
+    margin-top: .5em;
+    margin-bottom: .5em;
+    margin-right: 0;
+    font-weight: bold;
+    color: var(--paper-grey-800);
+}
+
+.volume-icon {
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+
+.bottom {
+    padding-bottom: 2em;
+}

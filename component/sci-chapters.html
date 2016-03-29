@@ -1,0 +1,73 @@
+<dom-module id="sci-chapters">
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+    <style is="custom-style" include="iron-flex iron-flex-alignment">
+        .crumb {
+            text-transform: none;
+            font-weight: bold;
+            color: var(--paper-grey-800);
+        }
+
+        .chapter {
+            background-color: white;
+            margin: .2em;
+            padding: .57em;
+            font-size: 11pt;
+            min-width: 67px;
+        }  
+
+        .bottom {
+            padding: 1em;
+        }
+    </style>
+
+    <template>
+        <div class="breadcrumb layout horizontal">
+            <paper-button on-tap="goBack" class="crumb">{{volume.fullName}} &gt; {{book.tocName}}</paper-button>
+        </div>
+        <div class="layout horizontal wrap" style="margin-left: .4em;">
+            <template is="dom-repeat" items="{{chapters}}">
+                <paper-button raised class="chapter">{{item.chapter}}</paper-button>
+            </template>
+        </div>
+        <div class="bottom"></div>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'sci-chapters',
+
+            properties: {
+                book: {
+                    type: Object,
+                    observer: 'bookChanged'
+                },
+                volume: Object,
+                chapters: Array
+            },
+
+            goBack: function (event) {
+                var pages = document.querySelector('#scriptures-pages');
+
+                pages.selectPrevious();
+            },
+
+            bookChanged: function (newBook) {
+                var i;
+                var self = this;
+
+                if (self.chapters === undefined || typeof self.chapters !== 'array') {
+                    self.chapters = new Array();
+                } else {
+                    self.splice('chapters', 0, self.chapters.length);
+                }
+
+                for (i = 1; i <= newBook.numChapters; i++) {
+                    self.push('chapters', { "chapter": i });
+                }
+            }
+        });
+    </script>
+
+</dom-module>

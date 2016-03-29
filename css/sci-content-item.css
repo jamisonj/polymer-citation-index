@@ -1,0 +1,22 @@
+paper-button {
+    background-color: white;
+    margin-top: .2em;
+    margin-bottom: .2em;
+    padding: .57em;
+    text-transform: none;
+}
+
+.contents-title {
+    text-align: left;
+}
+
+.contents-subtitle {
+    text-align: left;
+    font-size: 75%;
+}
+
+img {
+    height: 57px;
+    width: 57px;
+    margin-right: .5em;
+}

@@ -1,0 +1,30 @@
+paper-toolbar {
+    --paper-toolbar-background: var(--paper-brown-900);
+    --paper-toolbar-color: white;
+    --paper-toolbar: {
+        font-size: 13pt;
+    };
+}
+
+paper-icon-button {
+    --paper-icon-button-ink-color: white;
+}
+
+.self-end {
+    @apply(--layout-self-end);
+    width: 380px;
+    margin-left: -16px;
+    margin-right: -16px;
+}
+
+.drawer-head {
+    border-right: 1px solid var(--paper-brown-500);
+}
+
+.drawerback {
+    background-color: var(--paper-brown-100);
+}
+
+.site-title {
+    margin-left: .6em;
+}
