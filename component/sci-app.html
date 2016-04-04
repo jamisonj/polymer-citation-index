@@ -8,7 +8,6 @@
     <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
     <link rel="import" href="sci-about.html">
-    <link rel="import" href="sci-director.html">
     <link rel="import" href="sci-drawer-pages.html">
 
     <link rel="import" type="css" href="../css/sci-app.css">
@@ -54,20 +53,12 @@
                 <sci-about></sci-about>
             </paper-header-panel>
         </paper-drawer-panel>
-        <sci-director route="{{route}}"></sci-director>
-        <iron-ajax id="docAjax" url="" handle-as="document"></iron-ajax>
     </template>
     <script>
         Polymer({
             is: 'sci-app',
 
             properties: {
-                route: {
-                    type: String,
-                    notify: true,
-                    observer: 'routeChanged'
-                },
-
                 previousSelected: {
                     type: String,
                     value: 'SCRIPTURES'
@@ -80,56 +71,12 @@
                 }
             },
 
-            ready: function () {
-                var self = this;
-
-                self.$.docAjax.addEventListener('response', function (response) {
-                    try {
-                        self.async(function () {
-                            var i;
-                            var l;
-                            var links = response.detail.response.head.querySelectorAll('link');
-
-                            for (i = 0; i <= links.length - 1; i++) {
-                                if (!window.document.head.innerHTML.indexOf(links[i].href.toLowerCase()) != -1) {
-                                    l = document.createElement('link');
-                                    l.rel = 'import';
-                                    l.href = links[i].href.toLowerCase();
-                                    document.head.appendChild(l);
-                                }
-                            }
-
-                            l = document.createElement('div');
-                            l.innerHTML = response.detail.response.body.innerHTML;
-                            self.$.main.innerHTML = '';
-                            self.$.main.appendChild(l);
-                        }, 0);
-                    } catch (e) {
-                        // Ignore
-                    }
-                });
-            },
-
-            routeChanged: function (newValue, oldValue) {
-                // NEEDSWORK: finish adding routing facilities
-                var page = newValue.replace('!', '');
-                var params = page.split('?')[1];
-                var pageName = page.split('?')[0];
-
-                if (pageName === '') {
-                    pageName = 'home';
-                }
-
-                this.$.docAjax.url = 'app/pages/' + pageName + '/' + pageName + '.html?' + params;
-                this.$.docAjax.generateRequest();
-            },
-
             tabSelected: function (event) {
                 // When the user selects a tab that is already displayed, navigate
                 // to the home panel of that tab (if not already at the home panel).
                 var tabName = event.target.textContent.trim();
                 var drawer;
-                
+
                 if (this.previousSelected === tabName) {
                     drawer = document.querySelector('sci-drawer-pages');
                     drawer.navigateHome(tabName);
