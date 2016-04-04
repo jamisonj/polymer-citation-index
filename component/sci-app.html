@@ -8,7 +8,7 @@
     <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
     <link rel="import" href="sci-about.html">
-    <!--<link rel="import" href="sci-director.html">-->
+    <link rel="import" href="sci-director.html">
     <link rel="import" href="sci-drawer-pages.html">
 
     <link rel="import" type="css" href="../css/sci-app.css">
@@ -54,8 +54,8 @@
                 <sci-about></sci-about>
             </paper-header-panel>
         </paper-drawer-panel>
-        <!--<sci-director route="{{route}}"></sci-director>-->
-        <!--<iron-ajax id="docAjax" url="" handle-as="document"></iron-ajax>-->
+        <sci-director route="{{route}}"></sci-director>
+        <iron-ajax id="docAjax" url="" handle-as="document"></iron-ajax>
     </template>
     <script>
         Polymer({
@@ -78,6 +78,36 @@
                     value: 0,
                     notify: true
                 }
+            },
+
+            ready: function () {
+                var self = this;
+
+                self.$.docAjax.addEventListener('response', function (response) {
+                    try {
+                        self.async(function () {
+                            var i;
+                            var l;
+                            var links = response.detail.response.head.querySelectorAll('link');
+
+                            for (i = 0; i <= links.length - 1; i++) {
+                                if (!window.document.head.innerHTML.indexOf(links[i].href.toLowerCase()) != -1) {
+                                    l = document.createElement('link');
+                                    l.rel = 'import';
+                                    l.href = links[i].href.toLowerCase();
+                                    document.head.appendChild(l);
+                                }
+                            }
+
+                            l = document.createElement('div');
+                            l.innerHTML = response.detail.response.body.innerHTML;
+                            self.$.main.innerHTML = '';
+                            self.$.main.appendChild(l);
+                        }, 0);
+                    } catch (e) {
+                        // Ignore
+                    }
+                });
             },
 
             routeChanged: function (newValue, oldValue) {
