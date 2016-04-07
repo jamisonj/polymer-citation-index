@@ -5,7 +5,7 @@
     <link rel="import" type="css" href="../css/sci-book.css">
 
     <template>
-        <paper-button class="book" raised on-tap="showBook">{{book.tocName}}</paper-button>
+        <paper-button class="book" raised on-tap="showBook"">{{book.tocName}}</paper-button>
     </template>
 
     <script>
@@ -22,7 +22,14 @@
                 var scripturesChapters;
 
                 if (this.book.numChapters <= 1) {
-                    // NEEDSWORK: use routing to display chapter in the main panel
+                    var sciMainContent = document.querySelector('sci-main-content');
+                    var sciApp = document.querySelector('sci-app');
+
+                    sciMainContent.set('uiState.contentUrl',
+                            '../model/scripture/' + this.book.id + '.' +
+                            this.book.numChapters + '.json');
+                    sciMainContent.set('book', this.book);
+                    sciApp.set('uiState.selectedMainTab', 1);
                 } else {
                     pages = document.querySelector('#scriptures-pages');
                     scripturesChapters = document.querySelector('#scriptures-chapters');

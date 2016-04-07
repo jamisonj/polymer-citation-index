@@ -12,38 +12,29 @@
     <link rel="import" href="../bower_components/neon-animation/animations/slide-left-animation.html">    
 
     <link rel="import" href="sci-volumes.html">    
-    <link rel="import" href="sci-index.html">    
-    <link rel="import" href="sci-content-item.html">    
+    <link rel="import" href="sci-index.html">
+    <link rel="import" href="sci-contents.html">
 
     <style is="custom-style" include="iron-flex iron-flex-alignment">
     </style>
 
     <template>
-        <neon-animated-pages selected="[[selected]]">
+        <iron-ajax auto
+                   url="../model/volumes.json"
+                   handle-as="json"
+                   last-response="{{volumes}}"
+                   debounce-duration="300">
+        </iron-ajax>
+
+        <neon-animated-pages selected="[[uiState.selectedDrawerTab]]">
             <neon-animatable class="layout vertical" id="scriptures-page">
-                <sci-volumes volumes="{{volumes}}"></sci-volumes>
+                <sci-volumes volumes="{{volumes}}" ui-state="{{uiState}}"></sci-volumes>
             </neon-animatable>
             <neon-animatable class="layout vertical" id="index-page">
                 <sci-index volumes="{{volumes}}"></sci-index>
             </neon-animatable>
             <neon-animatable class="layout vertical" id="contents-page">
-                <!-- NEEDSWORK: implement sci-contents -->
-                <sci-content-item image-source="images/icon_gc.png"
-                                  main-title="General Conference"
-                                  sub-title="1942 to present"
-                                  target-url="#gc"></sci-content-item>
-                <sci-content-item image-source="images/icon_jod.png"
-                                  main-title="Journal of Discourses"
-                                  sub-title="Discourses from the 1800's"
-                                  target-url="#jod"></sci-content-item>
-                <sci-content-item image-source="images/icon_tg.png"
-                                  main-title="Topical Index"
-                                  sub-title="to the Journal of Discourses"
-                                  target-url="#tg"></sci-content-item>
-                <sci-content-item image-source="images/icon_tpjs.png"
-                                  main-title="Scriptural Teachings"
-                                  sub-title="of the Prophet Joseph Smith"
-                                  target-url="#tpjs"></sci-content-item>
+                <sci-contents></sci-contents>
             </neon-animatable>
             <neon-animatable class="layout vertical" id="speakers-page">
                 <!-- NEEDSWORK: implement sci-speakers -->
@@ -58,10 +49,13 @@
             is: 'sci-drawer-pages',
 
             properties: {
-                selected: {
-                    type: Number,
-                    value: 0,
+                uiState: {
+                    type: Object,
                     notify: true
+                },
+
+                volumes: {
+                    type: Object
                 }
             },
 

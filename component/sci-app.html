@@ -7,7 +7,7 @@
     <link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
     <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
-    <link rel="import" href="sci-about.html">
+    <link rel="import" href="sci-main-content.html">
     <link rel="import" href="sci-drawer-pages.html">
 
     <link rel="import" type="css" href="../css/sci-app.css">
@@ -16,41 +16,28 @@
     </style>
 
     <template>
-        <!-- NEEDSWORK: replace static JSON file with call to server to load from database -->
-        <iron-ajax auto
-            url="../model/volumes.json"
-            handle-as="json"
-            last-response="{{volumes}}"
-            debounce-duration="300">
-        </iron-ajax>
-
         <paper-drawer-panel class="flex" drawer-width="380px">
-            <!-- Here's the drawer, and it automatically hides away for narrow displays -->
             <paper-header-panel drawer class="drawerback">
                 <paper-toolbar class="drawer-head medium-tall">
                     <div class="flex">LDS Scripture Citation Index</div>
-                    <paper-tabs selected="{{selected}}" class="bottom self-end" on-tap="tabSelected">
+                    <paper-tabs selected="{{uiState.selectedDrawerTab}}" class="bottom self-end" on-tap="tabSelected">
                         <paper-tab>SCRIPTURES</paper-tab>
                         <paper-tab>INDEX</paper-tab>
                         <paper-tab>CONTENTS</paper-tab>
                         <paper-tab>SPEAKERS</paper-tab>
                     </paper-tabs>
                 </paper-toolbar>
-                <sci-drawer-pages volumes="{{volumes}}" selected="{{selected}}" class="flex"></sci-drawer-pages>
+                <sci-drawer-pages ui-state="{{uiState}}" class="flex"></sci-drawer-pages>
             </paper-header-panel>
 
-            <!-- Here's the main content panel -->
             <paper-header-panel main>
                 <paper-toolbar class="medium-tall">
                     <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
-                    <div class="flex site-title">About the LDS Scripture Citation Index</div>
+                    <div class="flex" id="site-title">About the LDS Scripture Citation Index</div>
                     <paper-icon-button icon="search"></paper-icon-button>
-                    <div class="bottom">
-                        &nbsp; <b>Note:</b> the real LDS Scripture Citation Index is at
-                        <a href="http://scriptures.byu.edu" style="color: white">scriptures.byu.edu</a>
-                    </div>
+                    <div class="bottom" id="main-crumb"></div>
                 </paper-toolbar>
-                <sci-about></sci-about>
+                <sci-main-content ui-state="{{uiState}}"></sci-main-content>
             </paper-header-panel>
         </paper-drawer-panel>
     </template>
@@ -64,16 +51,64 @@
                     value: 'SCRIPTURES'
                 },
 
-                selected: {
-                    type: Number,
-                    value: 0,
+                /*
+                 * UI state parameters object looks like this:
+                 *
+                 * {
+                 *  citation: { bookId, chapter },
+                 *  content: { selectedCategory, selectedId },
+                 *  filter: { corpus, endYear, groupBy, sortBy, speakerId, startYear },
+                 *  scripture: { bookId, chapter, isJst, verses },
+                 *  selectedDrawerTab,
+                 *  selectedMainTab,
+                 *  speaker: { letter, speakerId },
+                 *  talk: { talkId, highlight, targetCitationId }
+                 * }
+                 */
+                uiState: {
+                    type: Object,
+                    value: {
+                        selectedDrawerTab: 0,
+                        selectedMainTab: 0
+                    },
                     notify: true
+                }
+            },
+
+            same: function (object1, object2, properties) {
+                if (typeof object1 !== typeof object2) {
+                    return false;
+                }
+
+                if (object1 === object2) {
+                    return true;
+                }
+
+                for (p in properties) {
+                    if (typeof object1[p] !== typeof object2[p] || object1[p] !== object2[p]) {
+                        return false;
+                    }
+                }
+
+                return true;
+            },
+
+            navigateUi: function (parameters) {
+                var self = this;
+
+                self.uiState.selectedDrawerTab = parameters.selectedDrawerTab;
+                self.uiState.selectedMainTab = parameters.selectedMainTab;
+
+                // NEEDSWORK: respond to other state changes
+                if (!self.same(parameters.scripture, self.uiState.scripture, ['bookId', 'chapter', 'isJst', 'verses'])) {
+                    console.log("Scripture changed...");
                 }
             },
 
             tabSelected: function (event) {
                 // When the user selects a tab that is already displayed, navigate
                 // to the home panel of that tab (if not already at the home panel).
+                var self = this;
                 var tabName = event.target.textContent.trim();
                 var drawer;
 

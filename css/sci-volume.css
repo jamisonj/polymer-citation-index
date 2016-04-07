@@ -18,8 +18,15 @@ paper-icon-button {
 .volume-icon {
     margin-top: .5em;
     margin-bottom: .5em;
+    transition-duration: 0.3s;
+    transition-property: transform;
 }
 
 .bottom {
     padding-bottom: 2em;
+}
+
+.volume-icon.rotated {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
 }

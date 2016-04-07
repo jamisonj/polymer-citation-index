@@ -1,0 +1,50 @@
+<dom-module id="sci-main-content">
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+    <link rel="import" href="../bower_components/neon-animation/neon-animatable.html">
+
+    <!-- Override with custom version -->
+    <link rel="import" href="neon-animated-pages.html">    
+
+    <link rel="import" href="../bower_components/neon-animation/animations/slide-from-left-animation.html">
+    <link rel="import" href="../bower_components/neon-animation/animations/slide-right-animation.html">    
+    <link rel="import" href="../bower_components/neon-animation/animations/slide-from-right-animation.html">
+    <link rel="import" href="../bower_components/neon-animation/animations/slide-left-animation.html">    
+
+    <link rel="import" href="sci-about.html">
+    <link rel="import" href="sci-chapter.html">
+    <link rel="import" href="sci-talk.html">
+
+    <style is="custom-style" include="iron-flex iron-flex-alignment">
+    </style>
+
+    <template>
+        <neon-animated-pages selected="[[uiState.selectedMainTab]]">
+            <neon-animatable class="layout vertical" id="about-page">
+                <sci-about></sci-about>
+            </neon-animatable>
+            <neon-animatable class="layout vertical" id="chapter-page">
+                <sci-chapter url="{{uiState.contentUrl}}" book="{{book}}"></sci-chapter>
+            </neon-animatable>
+            <neon-animatable class="layout vertical" id="talk-page">
+                <sci-talk ui-state="{{uiState}}"></sci-talk>
+            </neon-animatable>
+        </neon-animated-pages>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'sci-main-content',
+
+            properties: {
+                book: Object,
+
+                uiState: {
+                    type: Object,
+                    notify: true
+                }
+            }
+        });
+    </script>
+
+</dom-module>

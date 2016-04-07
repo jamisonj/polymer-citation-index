@@ -47,7 +47,12 @@
                     type: Object,
                     observer: 'volumeChanged'
                 },
-                chapters: Array
+                chapters: Array,
+                url: {
+                    type: String,
+                    notify: true,
+                    reflectToAttribute: true
+                }
             },
 
             goBack: function (event) {
@@ -56,12 +61,23 @@
                 pages.selectPrevious();
             },
 
+            goChapter: function (event, jst) {
+                var sciMainContent = document.querySelector('sci-main-content');
+                var sciApp = document.querySelector('sci-app');
+
+                sciMainContent.set('uiState.contentUrl',
+                        '../model/scripture/' + jst + this.book.id + '.' +
+                        event.target.innerText + '.json');
+                sciMainContent.set('book', this.book);
+                sciApp.set('uiState.selectedMainTab', 1);
+            },
+
             goJst: function (event) {
-                // NEEDSWORK: display JST chapter content in the main panel
+                this.goChapter(event, 'jst/');
             },
 
             goKjv: function (event) {
-                // NEEDSWORK: display KJV chapter content in the main panel
+                this.goChapter(event, '');
             },
 
             bookChanged: function (newBook) {

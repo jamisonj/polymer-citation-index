@@ -1,0 +1,33 @@
+<dom-module id="sci-contents">
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="sci-content-item.html">
+
+    <!--<style is="custom-style" include="iron-flex iron-flex-alignment">-->
+    <!--</style>-->
+
+    <template>
+        <sci-content-item image-source="images/icon_gc.png"
+                          main-title="General Conference"
+                          sub-title="1942 to present"
+                          target-url="#gc"></sci-content-item>
+        <sci-content-item image-source="images/icon_jod.png"
+                          main-title="Journal of Discourses"
+                          sub-title="Discourses from the 1800's"
+                          target-url="#jod"></sci-content-item>
+        <sci-content-item image-source="images/icon_tg.png"
+                          main-title="Topical Index"
+                          sub-title="to the Journal of Discourses"
+                          target-url="#tg"></sci-content-item>
+        <sci-content-item image-source="images/icon_tpjs.png"
+                          main-title="Scriptural Teachings"
+                          sub-title="of the Prophet Joseph Smith"
+                          target-url="#tpjs"></sci-content-item>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'sci-contents'
+        });
+    </script>
+
+</dom-module>

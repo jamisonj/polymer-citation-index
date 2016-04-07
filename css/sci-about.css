@@ -6,6 +6,19 @@
 
 #bannerImg {
     max-width: 703px;
+    background-image: url(../images/Banner-703@1x.jpg);
+    width: 703px;
+    height: 229px;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    #bannerImg {
+        max-width: 703px;
+        background-image: url(../images/Banner-703@2x.jpg);
+        background-size: contain;
+        width: 703px;
+        height: 229px;
+    }
 }
 
 .compact {

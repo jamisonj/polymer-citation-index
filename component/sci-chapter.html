@@ -1,0 +1,135 @@
+<dom-module id="sci-chapter">
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+    <link rel="import" href="html-echo.html">
+
+    <link rel="import" type="css" href="../css/sci-chapter.css">
+
+    <template>
+        <iron-ajax auto
+                   url="{{url}}"
+                   handle-as="json"
+                   last-response="{{content}}"
+                   debounce-duration="300">
+        </iron-ajax>
+
+        <div id="scriptureContent">
+            <template is="dom-if" if="{{verseNormal(chapter)}}">
+                <div class="chapterHeading">{{book.subdiv}} {{chapter}}{{jstLabel}}</div>
+            </template>
+            <template is="dom-repeat" items="{{content}}">
+                <div class$="{{verseHighlight(item.Verse)}}">
+                    <template is="dom-if" if="{{verseNormal(item.Verse)}}">
+                        <div class="verseNumber">{{item.Verse}}</div>
+                    </template>
+                    <html-echo html="{{item.Text}}" class="verseText"></html-echo>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'sci-chapter',
+
+            properties: {
+                book: {
+                    type: Object,
+                    observer: 'bookChanged'
+                },
+                chapter: {
+                    type: String,
+                    notify: true
+                },
+                content: Object,
+                crumbs: {
+                    type: String,
+                    notify: true
+                },
+                jstLabel: {
+                    type: String,
+                    notify: true
+                },
+                verses: {
+                    type: Array,
+                    value: [],
+                    notify: true
+                },
+                url: {
+                    type: String,
+                    observer: 'bookChanged'
+                }
+            },
+
+            bookChanged: function () {
+                var siteTitle = document.querySelector('#site-title');
+                var volumes = document.querySelector('sci-drawer-pages').volumes;
+                var chapterRegex = /^[^0-9]*[0-9]*[.]([0-9]*).json([?]verses=(.*))?$/;
+                var match = chapterRegex.exec(this.url);
+
+                if (match[1] === "0") {
+                    match[1] = '';
+                }
+
+                this.set('chapter', match[1]);
+                this.set('verses', this.expandVerses(match[3]));
+
+                if (this.url.indexOf('/jst/') >= 0) {
+                    this.set('jstLabel', ' (JST)');
+                } else {
+                    this.set('jstLabel', '');
+                }
+
+                if (this.book !== undefined && this.book.citeFull !== undefined) {
+                    siteTitle.innerText = volumes[this.book.parentBookId - 1].webTitle + " > " + this.book.citeFull + " " + match[1] + this.jstLabel;
+                }
+            },
+
+            expandVerses: function (verses) {
+                if (verses === undefined) {
+                    return [];
+                }
+
+                var versesArray = [];
+                var verseParts = verses.split(',');
+                var i;
+                var j;
+                var rangeParts;
+
+                for (i = 0; i < verseParts.length; i++) {
+                    rangeParts = verseParts[i].split('-');
+
+                    if (rangeParts.length <= 1) {
+                        versesArray.push(verseParts[i]);
+                    } else {
+                        for (j = rangeParts[0]; j <= rangeParts[1]; j++) {
+                            versesArray.push(j + '');
+                        }
+                    }
+                }
+
+                return versesArray;
+            },
+
+            verseHighlight: function (verse) {
+                var i;
+
+                for (i = 0; i < this.verses.length; i++) {
+                    if (this.verses[i] === verse) {
+                        return 'verse highlight';
+                    }
+                }
+
+                return 'verse';
+            },
+
+            verseNormal: function (verse) {
+                var verseNumber = parseInt(verse, 10);
+
+                return verseNumber > 0 && verseNumber < 1000;
+            }
+        });
+    </script>
+
+</dom-module>

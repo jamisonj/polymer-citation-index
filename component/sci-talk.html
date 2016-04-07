@@ -1,0 +1,54 @@
+<dom-module id="sci-talk">
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+    <link rel="import" href="html-echo.html">
+
+    <link rel="import" type="css" href="../css/sci-talk.css">
+
+    <template>
+        <iron-ajax auto
+                   url="{{url}}"
+                   handle-as="json"
+                   last-response="{{content}}"
+                   debounce-duration="300">
+        </iron-ajax>
+
+        <div id="talkContent">
+            <html-echo html="{{content.Text}}"></html-echo>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'sci-talk',
+
+            properties: {
+                content: {
+                    type: Object,
+                    notify: true
+                },
+
+                uiState: {
+                    type: Object,
+                    notify: true,
+                    observer: 'stateChanged'
+                },
+
+                url: {
+                    type: String,
+                    notify: true
+                }
+            },
+
+            stateChanged: function () {
+                var self = this;
+
+                if (self.uiState !== undefined && self.uiState.talk !== undefined) {
+                    self.set('url', '../model/talk/' + self.uiState.talk.talkId + '.json');
+                }
+            }
+        });
+    </script>
+
+</dom-module>

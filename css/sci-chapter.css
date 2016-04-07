@@ -1,0 +1,33 @@
+.v0 {
+    display: none;
+}
+
+.verse {
+    margin-bottom: .7em;
+    line-height: 1.35em;
+}
+
+.verseNumber {
+    display: inline;
+    font-weight: bold;
+    margin-right: .5em;
+}
+
+.verseText {
+    display: inline;
+}
+
+#scriptureContent {
+    margin: 3em;
+    max-width: 600px;
+}
+
+.chapterHeading {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: .7em;
+}
+
+.highlight {
+    background-color: var(--paper-yellow-100);
+}
