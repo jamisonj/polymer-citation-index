@@ -21,7 +21,7 @@
     </style>
 
     <template>
-        <neon-animated-pages id="index-pages" selected="{{selected}}" slide-backwards="true">
+        <neon-animated-pages id="index-pages" selected="{{selected}}" slide-backwards="false">
             <neon-animatable class="layout vertical">
                 <template is="dom-repeat" items="{{volumes}}">
                     <sci-index-volume volume="{{item}}"></sci-index-volume>

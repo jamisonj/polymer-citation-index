@@ -31,8 +31,7 @@
 
                 uiState: {
                     type: Object,
-                    notify: true,
-                    observer: 'stateChanged'
+                    notify: true
                 },
 
                 url: {
@@ -41,7 +40,11 @@
                 }
             },
 
-            stateChanged: function () {
+            observers: [
+                    'talkChanged(uiState.talk.talkId, uiState.talk.highlight, uiState.talk.targetCitationId)'
+            ],
+
+            talkChanged: function () {
                 var self = this;
 
                 if (self.uiState !== undefined && self.uiState.talk !== undefined) {

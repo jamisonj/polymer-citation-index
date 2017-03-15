@@ -143,11 +143,11 @@ animations to be run when switching to or switching out of the page.
       if (this.previousSelected !== this.selected) {
         if ( (!this.slideBackwards && this.previousSelected < this.selected) ||
              (this.slideBackwards && this.previousSelected > this.selected) ) {
-          this.entryAnimation = 'slide-from-left-animation';
-          this.exitAnimation = 'slide-right-animation';
-        } else {
           this.entryAnimation = 'slide-from-right-animation';
           this.exitAnimation = 'slide-left-animation';
+        } else {
+          this.entryAnimation = 'slide-from-left-animation';
+          this.exitAnimation = 'slide-right-animation';
         }
       }
 

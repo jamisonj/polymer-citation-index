@@ -13,6 +13,7 @@ var SciHashManager = (function () {
      *  talk: { talkId, highlight, targetCitationId }
      * }
      */
+    'use strict';
 
     var decodeCitation = function (parameters, hash) {
         if (hash.length >= 3) {
@@ -287,8 +288,8 @@ var SciHashManager = (function () {
     };
 
     var encodeSelections = function (parameters) {
-        return String.fromCharCode(parameters.selectedDrawerTab * 4
-            + parameters.selectedMainTab + 65);
+        return String.fromCharCode(parameters.selectedDrawerTab * 4 +
+            parameters.selectedMainTab + 65);
     };
 
     var encodeSpeakerHash = function (speaker) {
@@ -357,12 +358,12 @@ var SciHashManager = (function () {
                 return '';
             }
 
-            return encodeSelections(parameters)
-                + encodeScriptureHash(parameters.scripture) + ':'
-                + encodeCitationHash(parameters) + ':'
-                + encodeContentTabHash(parameters.content) + ':'
-                + encodeSpeakerHash(parameters.speaker) + ':'
-                + encodeMainContentHash(parameters.talk);
+            return encodeSelections(parameters) +
+                encodeScriptureHash(parameters.scripture) + ':' +
+                encodeCitationHash(parameters) + ':' +
+                encodeContentTabHash(parameters.content) + ':' +
+                encodeSpeakerHash(parameters.speaker) + ':' +
+                encodeMainContentHash(parameters.talk);
         }
     };
 })();

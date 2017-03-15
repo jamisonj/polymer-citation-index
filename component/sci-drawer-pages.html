@@ -13,7 +13,7 @@
 
     <link rel="import" href="sci-volumes.html">    
     <link rel="import" href="sci-index.html">
-    <link rel="import" href="sci-contents.html">
+    <link rel="import" href="sci-table-of-contents.html">
 
     <style is="custom-style" include="iron-flex iron-flex-alignment">
     </style>
@@ -34,7 +34,7 @@
                 <sci-index volumes="{{volumes}}"></sci-index>
             </neon-animatable>
             <neon-animatable class="layout vertical" id="contents-page">
-                <sci-contents></sci-contents>
+                <sci-table-of-contents ui-state="{{uiState}}" volumes="{{volumes}}"></sci-table-of-contents>
             </neon-animatable>
             <neon-animatable class="layout vertical" id="speakers-page">
                 <!-- NEEDSWORK: implement sci-speakers -->

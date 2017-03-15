@@ -1,0 +1,38 @@
+<dom-module id="sci-conference-list">
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+    <link rel="import" href="../bower_components/paper-button/paper-button.html">
+    <link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
+    <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+    <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+    <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+    <link rel="import" href="sci-book.html">
+    <link rel="import" type="css" href="../css/sci-conference-list.css">
+
+    <style is="custom-style" include="iron-flex iron-flex-alignment">
+    </style>
+
+    <template>
+        <iron-ajax auto
+                   url="../model/conferences.json"
+                   handle-as="json"
+                   last-response="{{conferences}}"
+                   debounce-duration="300">
+        </iron-ajax>
+
+        <template is="dom-repeat" items="{{conferences}}">
+            <paper-button class="conference" raised on-tap="showConference">{{item.Year}}&mdash;{{item.Annual}}</paper-button>
+        </template>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'sci-conference-list',
+
+            properties: {
+                conferences: Object
+            }
+        });
+    </script>
+</dom-module>

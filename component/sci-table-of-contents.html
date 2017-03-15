@@ -1,0 +1,61 @@
+<dom-module id="sci-table-of-contents">
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+    <link rel="import" href="../bower_components/neon-animation/neon-animatable.html">
+
+    <!-- Override with custom version -->
+    <link rel="import" href="neon-animated-pages.html">
+
+    <link rel="import" href="../bower_components/neon-animation/animations/slide-from-left-animation.html">
+    <link rel="import" href="../bower_components/neon-animation/animations/slide-right-animation.html">
+    <link rel="import" href="../bower_components/neon-animation/animations/slide-from-right-animation.html">
+    <link rel="import" href="../bower_components/neon-animation/animations/slide-left-animation.html">
+
+    <link rel="import" href="sci-contents.html">
+    <link rel="import" href="sci-conference-list.html">
+
+    <style is="custom-style" include="iron-flex iron-flex-alignment">
+    </style>
+
+    <template>
+        <neon-animated-pages selected="[[uiState.selectedTableOfContents]]">
+            <neon-animatable class="layout vertical" id="table-of-contents">
+                <sci-contents></sci-contents>
+            </neon-animatable>
+            <neon-animatable class="layout vertical" id="conference-list">
+                <sci-conference-list ui-state="{{uiState}}"></sci-conference-list>
+            </neon-animatable>
+            <neon-animatable class="layout vertical" id="jod-volumes">
+                JoD Volumes list goes here
+            </neon-animatable>
+            <neon-animatable class="layout vertical" id="jod-index">
+                JoD Topical Index goes here
+            </neon-animatable>
+            <neon-animatable class="layout vertical" id="tpjs-pages">
+                TPJS pages list goes here
+            </neon-animatable>
+        </neon-animated-pages>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'sci-table-of-contents',
+
+            properties: {
+                uiState: {
+                    type: Object,
+                    notify: true
+                },
+
+                volumes: {
+                    type: Object
+                }
+            },
+
+            ready: function () {
+                this.set('uiState.selectedTableOfContents', 0);
+            }
+        });
+    </script>
+
+</dom-module>
